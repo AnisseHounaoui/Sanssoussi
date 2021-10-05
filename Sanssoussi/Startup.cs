@@ -55,6 +55,12 @@ namespace Sanssoussi
                 //appel du middleware HSTS
                 app.UseHsts();
             }
+
+            //Validation Cors
+            app.UseCors(builder => builder.WithOrigins("https://localhost:9999")    //permet de partager les ressource avec cet origine en https
+                               .WithMethods()                                  // en autorisant seulement les methodes cité
+                               .AllowAnyHeader());                                  //autorisation de tout les headers
+            //Fin Cors 
             app.UseCookiePolicy();
             
             app.UseStaticFiles();
