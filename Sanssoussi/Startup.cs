@@ -19,7 +19,7 @@ namespace Sanssoussi
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        /*public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
             services.AddControllersWithViews();
@@ -39,7 +39,7 @@ namespace Sanssoussi
                 options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 options.AccessDeniedPath = "/AccessDeniedPathInfo";
             });
-        }
+        }*/
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -52,6 +52,8 @@ namespace Sanssoussi
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                //appel du middleware HSTS
+                app.UseHsts();
             }
             app.UseCookiePolicy();
             
