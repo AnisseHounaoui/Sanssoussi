@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,9 +67,17 @@ namespace Sanssoussi.Controllers
         public async Task<IActionResult> Comments(string comment)
         {
             var user = await this._userManager.GetUserAsync(this.User);
+            
+            var comment_input = comment;
+            var forbiden_car = new[] { "&", "<", ">", ",", "'", "script" };
             if (user == null)
             {
                 throw new InvalidOperationException("Vous devez vous connecter");
+            }
+            //Valide que dans les commentaires, il n'y a pas un éléement dans la blacklist
+            if (forbiden_car.Any(comment_input.Contains) == true)
+            {
+                return this.Ok("Caractere Invalide");
             }
 
             var cmd = new SqliteCommand(
