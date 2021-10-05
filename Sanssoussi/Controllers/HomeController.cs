@@ -90,7 +90,9 @@ namespace Sanssoussi.Controllers
                 return this.View(searchResults);
             }
 
-            var cmd = new SqliteCommand($"Select Comment from Comments where UserId = '{user.Id}' and Comment like '%{searchData}%'", this._dbConnection);
+            var cmd = new SqliteCommand($"Select Comment from Comments where UserId = '{user.Id}' and Comment like @search", this._dbConnection); //use of prepared statement
+            cmd.Parameters.AddWithValue("@search", searchData + "%");
+
             this._dbConnection.Open();
             var rd = await cmd.ExecuteReaderAsync();
             while (rd.Read())

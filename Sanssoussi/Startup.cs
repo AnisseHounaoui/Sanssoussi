@@ -61,6 +61,8 @@ namespace Sanssoussi
                                .WithMethods()                                  // en autorisant seulement les methodes cité
                                .AllowAnyHeader());                                  //autorisation de tout les headers
             //Fin Cors 
+
+
             app.UseCookiePolicy();
             
             app.UseStaticFiles();
